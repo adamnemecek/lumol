@@ -38,10 +38,10 @@ impl Translate {
     /// Create a new `Translate` move, with maximum displacement of `delta`.
     /// This move will apply to the molecules with the given `hash`, or all
     /// molecules if `hash` is `None`.
-    pub fn new<H: Into<Option<MoleculeHash>>>(delta: f64, hash: H) -> Translate {
+    pub fn new<H: Into<Option<MoleculeHash>>>(delta: f64, hash: H) -> Self {
         assert!(delta > 0.0, "delta must be positive in Translate move");
         let delta = delta / f64::sqrt(3.0);
-        Translate {
+        Self {
             hash: hash.into(),
             molid: usize::max_value(),
             newpos: Vec::new(),

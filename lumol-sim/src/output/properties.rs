@@ -27,8 +27,8 @@ pub struct PropertiesOutput {
 impl PropertiesOutput {
     /// Create a new `PropertiesOutput` writing to `filename`. The file is replaced
     /// if it already exists.
-    pub fn new<P: AsRef<Path>>(filename: P) -> Result<PropertiesOutput, io::Error> {
-        Ok(PropertiesOutput {
+    pub fn new<P: AsRef<Path>>(filename: P) -> Result<Self, io::Error> {
+        Ok(Self {
             file: BufWriter::new(File::create(filename.as_ref())?),
             path: filename.as_ref().to_owned(),
         })

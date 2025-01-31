@@ -117,11 +117,11 @@ impl From<num::ParseFloatError> for ParseError {
 impl fmt::Display for ParseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
-            ParseError::Power(ref err) => err.fmt(f),
-            ParseError::Value(ref err) => err.fmt(f),
-            ParseError::ParenthesesMismatch => write!(f, "Parentheses are not equilibrated."),
-            ParseError::NotFound { ref unit } => write!(f, "Unit '{unit}' not found."),
-            ParseError::MalformedExpr(ref err) => write!(f, "Malformed expression: {err}"),
+            Self::Power(ref err) => err.fmt(f),
+            Self::Value(ref err) => err.fmt(f),
+            Self::ParenthesesMismatch => write!(f, "Parentheses are not equilibrated."),
+            Self::NotFound { ref unit } => write!(f, "Unit '{unit}' not found."),
+            Self::MalformedExpr(ref err) => write!(f, "Malformed expression: {err}"),
         }
     }
 }
@@ -129,11 +129,11 @@ impl fmt::Display for ParseError {
 impl Error for ParseError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match *self {
-            ParseError::Power(ref err) => Some(err),
-            ParseError::Value(ref err) => Some(err),
-            ParseError::ParenthesesMismatch |
-            ParseError::NotFound { .. } |
-            ParseError::MalformedExpr(..) => None,
+            Self::Power(ref err) => Some(err),
+            Self::Value(ref err) => Some(err),
+            Self::ParenthesesMismatch |
+            Self::NotFound { .. } |
+            Self::MalformedExpr(..) => None,
         }
     }
 }
@@ -159,22 +159,22 @@ impl Token {
     /// What is the precedence of a specific token
     fn precedence(&self) -> usize {
         match *self {
-            Token::LParen | Token::RParen => 0,
-            Token::Div | Token::Mul => 10,
-            Token::Pow => 20,
-            Token::Value(..) => unreachable!("invalid call to units::Token::precedence for values"),
+            Self::LParen | Self::RParen => 0,
+            Self::Div | Self::Mul => 10,
+            Self::Pow => 20,
+            Self::Value(..) => unreachable!("invalid call to units::Token::precedence for values"),
         }
     }
 
     /// Get the string used to build this token in tokenize
     fn as_str(&self) -> &str {
         match *self {
-            Token::LParen => "(",
-            Token::RParen => ")",
-            Token::Div => "/",
-            Token::Mul => "*",
-            Token::Pow => "^",
-            Token::Value(ref value) => value,
+            Self::LParen => "(",
+            Self::RParen => ")",
+            Self::Div => "/",
+            Self::Mul => "*",
+            Self::Pow => "^",
+            Self::Value(ref value) => value,
         }
     }
 }
@@ -278,15 +278,15 @@ impl UnitExpr {
     /// Recursively evaluate an unit expression
     fn eval(&self) -> f64 {
         match *self {
-            UnitExpr::Val(v) => v,
-            UnitExpr::Mul(ref lhs, ref rhs) => lhs.eval() * rhs.eval(),
-            UnitExpr::Div(ref lhs, ref rhs) => lhs.eval() / rhs.eval(),
-            UnitExpr::Pow(ref expr, pow) => expr.eval().powi(pow),
+            Self::Val(v) => v,
+            Self::Mul(ref lhs, ref rhs) => lhs.eval() * rhs.eval(),
+            Self::Div(ref lhs, ref rhs) => lhs.eval() / rhs.eval(),
+            Self::Pow(ref expr, pow) => expr.eval().powi(pow),
         }
     }
 
     /// Parse a string, and generate the corresponding unit expression
-    fn parse(unit: &str) -> Result<UnitExpr, ParseError> {
+    fn parse(unit: &str) -> Result<Self, ParseError> {
         let tokens = tokenize(unit);
         let mut stream = shunting_yard(tokens)?;
         let ast = read_expr(&mut stream)?;

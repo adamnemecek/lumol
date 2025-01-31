@@ -31,8 +31,8 @@ pub struct Bonding {
 
 impl Bonding {
     /// Create a new `Bonding` containing only the atom i
-    pub fn new(i: usize) -> Bonding {
-        Bonding {
+    pub fn new(i: usize) -> Self {
+        Self {
             bonds: HashSet::new(),
             angles: HashSet::new(),
             dihedrals: HashSet::new(),

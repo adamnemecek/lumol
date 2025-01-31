@@ -78,8 +78,8 @@ pub struct Interactions {
 
 impl Interactions {
     /// Create a new empty `Interactions`
-    pub fn new() -> Interactions {
-        Interactions {
+    pub fn new() -> Self {
+        Self {
             coulomb: None,
             globals: Vec::new(),
             pairs: BTreeMap::new(),

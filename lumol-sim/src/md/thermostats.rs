@@ -145,12 +145,12 @@ pub struct CSVRThermostat {
 impl CSVRThermostat {
     /// Create a new `CSVRThermostat` enforcing the given `temperature`, with a
     /// timestep of `tau` times the integrator timestep.
-    pub fn new(temperature: f64, tau: f64) -> CSVRThermostat {
+    pub fn new(temperature: f64, tau: f64) -> Self {
         let rng = Box::new(rand_xorshift::XorShiftRng::from_seed([
             0xeb, 0xa8, 0xe4, 0x29, 0xca, 0x60, 0x44, 0xb0,
             0xd3, 0x77, 0xc6, 0xa0, 0x21, 0x71, 0x37, 0xf7,
         ]));
-        return CSVRThermostat::from_rng(temperature, tau, rng)
+        Self::from_rng(temperature, tau, rng)
     }
 
     /// Create a new `CSVRThermostat` enforcing the given `temperature`, with a

@@ -49,17 +49,17 @@ impl Particle {
     /// Create a new `Particle` from a `name`, setting the mass to the atomic
     /// mass if the `name` can be found in the periodic table. The charge,
     /// position, and velocity are set to 0.
-    pub fn new<S: Into<String>>(name: S) -> Particle {
-        Particle::with_position(name, Vector3D::zero())
+    pub fn new<S: Into<String>>(name: S) -> Self {
+        Self::with_position(name, Vector3D::zero())
     }
 
     /// Create a new `Particle` from a `name` and a `position`, setting the
     /// mass to the atomic mass if the `name` can be found in the periodic
     /// table. The charge and velocity are set to 0.
-    pub fn with_position<S: Into<String>>(name: S, position: Vector3D) -> Particle {
+    pub fn with_position<S: Into<String>>(name: S, position: Vector3D) -> Self {
         let name = name.into();
         let mass = get_atomic_mass(&name).unwrap_or(0.0);
-        Particle {
+        Self {
             name,
             mass,
             charge: 0.0,

@@ -73,7 +73,7 @@ impl From<(CustomOutputError, PathBuf)> for Error {
 impl fmt::Display for Error {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         match *self {
-            Error::Io(ref err, ref path) => {
+            Self::Io(ref err, ref path) => {
                 match err.kind() {
                     io::ErrorKind::NotFound => {
                         write!(fmt, "can not find '{}'", path.display())
@@ -86,11 +86,11 @@ impl fmt::Display for Error {
                     }
                 }
             }
-            Error::Trajectory(ref err) => write!(fmt, "{err}"),
-            Error::TOML(ref err) => write!(fmt, "{err}"),
-            Error::Config(ref err) => write!(fmt, "{err}"),
-            Error::Unit(ref err) => write!(fmt, "{err}"),
-            Error::CustomOutput(ref err) => write!(fmt, "{err}"),
+            Self::Trajectory(ref err) => write!(fmt, "{err}"),
+            Self::TOML(ref err) => write!(fmt, "{err}"),
+            Self::Config(ref err) => write!(fmt, "{err}"),
+            Self::Unit(ref err) => write!(fmt, "{err}"),
+            Self::CustomOutput(ref err) => write!(fmt, "{err}"),
         }
     }
 }
@@ -98,11 +98,11 @@ impl fmt::Display for Error {
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            Error::TOML(..) | Error::Config(..) => None,
-            Error::Io(ref err, _) => Some(err),
-            Error::Trajectory(ref err) => Some(err),
-            Error::Unit(ref err) => Some(err),
-            Error::CustomOutput(ref err) => Some(err),
+            Self::TOML(..) | Error::Config(..) => None,
+            Self::Io(ref err, _) => Some(err),
+            Self::Trajectory(ref err) => Some(err),
+            Self::Unit(ref err) => Some(err),
+            Self::CustomOutput(ref err) => Some(err),
         }
     }
 }

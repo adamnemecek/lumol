@@ -22,8 +22,8 @@ pub struct EnergyOutput {
 impl EnergyOutput {
     /// Create a new `EnergyOutput` writing to `filename`. The file is replaced
     /// if it already exists.
-    pub fn new<P: AsRef<Path>>(filename: P) -> Result<EnergyOutput, io::Error> {
-        Ok(EnergyOutput {
+    pub fn new<P: AsRef<Path>>(filename: P) -> Result<Self, io::Error> {
+        Ok(Self {
             file: BufWriter::new(File::create(filename.as_ref())?),
             path: filename.as_ref().to_owned(),
         })

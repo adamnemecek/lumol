@@ -28,8 +28,8 @@ pub struct VelocityVerlet {
 
 impl VelocityVerlet {
     /// Create a new integrator with a timestep of `timestep`.
-    pub fn new(timestep: f64) -> VelocityVerlet {
-        VelocityVerlet {
+    pub fn new(timestep: f64) -> Self {
+        Self {
             timestep,
             accelerations: Vec::new(),
         }

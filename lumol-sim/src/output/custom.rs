@@ -49,9 +49,9 @@ impl From<String> for CustomOutputError {
 impl fmt::Display for CustomOutputError {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         match *self {
-            CustomOutputError::Io(ref err) => write!(fmt, "{err}")?,
-            CustomOutputError::Expr(ref err) => write!(fmt, "{err}")?,
-            CustomOutputError::Custom(ref err) => write!(fmt, "{err}")?,
+            Self::Io(ref err) => write!(fmt, "{err}")?,
+            Self::Expr(ref err) => write!(fmt, "{err}")?,
+            Self::Custom(ref err) => write!(fmt, "{err}")?,
         }
         Ok(())
     }
@@ -60,9 +60,9 @@ impl fmt::Display for CustomOutputError {
 impl error::Error for CustomOutputError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            CustomOutputError::Io(ref err) => Some(err),
-            CustomOutputError::Expr(ref err) => Some(err),
-            CustomOutputError::Custom(_) => None,
+            Self::Io(ref err) |
+            Self::Expr(ref err) => Some(err),
+            Self::Custom(_) => None,
         }
     }
 }

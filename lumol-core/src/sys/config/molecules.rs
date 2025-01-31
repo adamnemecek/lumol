@@ -19,8 +19,8 @@ pub struct MoleculeHash(u64);
 
 #[cfg(test)]
 impl MoleculeHash {
-    pub(crate) fn new(value: u64) -> MoleculeHash {
-        MoleculeHash(value)
+    pub(crate) fn new(value: u64) -> Self {
+        Self(value)
     }
 }
 
@@ -144,9 +144,9 @@ impl<'a> MoleculeRef<'a> {
     ///
     /// If the `bonding` and the `particles` do not containe the same number
     /// of particles.
-    pub fn new(bonding: &'a Bonding, particles: ParticleSlice<'a>) -> MoleculeRef<'a> {
+    pub fn new(bonding: &'a Bonding, particles: ParticleSlice<'a>) -> Self {
         assert_eq!(bonding.size(), particles.len());
-        MoleculeRef {
+        Self {
             bonding,
             particles,
         }

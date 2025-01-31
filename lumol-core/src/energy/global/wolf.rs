@@ -65,7 +65,7 @@ pub struct Wolf {
 
 impl Wolf {
     /// Create a new Wolf summation, using a real-space cutoff of `cutoff`.
-    pub fn new(cutoff: f64) -> Wolf {
+    pub fn new(cutoff: f64) -> Self {
         assert!(cutoff > 0.0, "Got a negative cutoff in Wolf summation");
         let alpha = PI / cutoff;
 
@@ -74,7 +74,7 @@ impl Wolf {
 
         let energy_constant = erfc(alpha_cutoff) / cutoff;
         let force_constant = erfc(alpha_cutoff) / (cutoff * cutoff) + FRAC_2_SQRT_PI * alpha * f64::exp(-alpha_cutoff_2) / cutoff;
-        Wolf {
+        Self {
             alpha,
             cutoff,
             energy_constant,

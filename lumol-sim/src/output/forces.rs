@@ -21,8 +21,8 @@ pub struct ForcesOutput {
 impl ForcesOutput {
     /// Create a new `ForcesOutput` writing to `filename`. The file is replaced
     /// if it already exists.
-    pub fn new<P: AsRef<Path>>(filename: P) -> Result<ForcesOutput, io::Error> {
-        Ok(ForcesOutput {
+    pub fn new<P: AsRef<Path>>(filename: P) -> Result<Self, io::Error> {
+        Ok(Self {
             file: BufWriter::new(File::create(filename.as_ref())?),
             path: filename.as_ref().to_owned(),
         })

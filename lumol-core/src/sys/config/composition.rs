@@ -31,8 +31,8 @@ impl Composition {
     /// // no molecules
     /// assert_eq!(composition.all_molecules().count(), 0);
     /// ```
-    pub fn new() -> Composition {
-        Composition {
+    pub fn new() -> Self {
+        Self {
             particles: Vec::new(),
             molecules: BTreeMap::new(),
         }

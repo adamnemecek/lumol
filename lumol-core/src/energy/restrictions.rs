@@ -90,10 +90,10 @@ impl PairRestriction {
             Self::IntraMolecular => !are_in_same_molecule,
             Self::Exclude12 => path == BondPath::OneBond,
             Self::Exclude13 | Self::Scale14(..) => {
-                path == BondPath::OneBond || path == BondPath::TwoBonds
+                matches!(path, BondPath::OneBond | BondPath::TwoBonds)
             }
             Self::Exclude14 => {
-                path == BondPath::OneBond || path == BondPath::TwoBonds || path == BondPath::ThreeBonds
+                matches!(path, BondPath::OneBond | BondPath::TwoBonds | BondPath::ThreeBonds)
             },
         };
 

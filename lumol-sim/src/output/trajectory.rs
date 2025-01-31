@@ -23,12 +23,12 @@ impl TrajectoryOutput {
     /// for more information.
     ///
     /// [formats]: http://chemfiles.org/chemfiles/latest/formats.html
-    pub fn new<P>(path: P) -> Result<TrajectoryOutput, TrajectoryError>
+    pub fn new<P>(path: P) -> Result<Self, TrajectoryError>
     where
         P: AsRef<Path>,
     {
         let builder = TrajectoryBuilder::new().mode(OpenMode::Write);
-        Ok(TrajectoryOutput {
+        Ok(Self {
             file: builder.open(path)?
         })
     }

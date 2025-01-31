@@ -465,7 +465,7 @@ pub struct Gaussian {
 
 impl Gaussian {
     /// Create a new `Gaussian` potential with a depth of `a` and a width of `b`
-    pub fn new(a: f64, b: f64) -> Gaussian {
+    pub fn new(a: f64, b: f64) -> Self {
         assert!(b > 0.0, "\"b\" has to be positive in Gaussian potential");
         Self { a, b }
     }

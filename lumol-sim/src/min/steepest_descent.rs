@@ -18,8 +18,8 @@ pub struct SteepestDescent {
 
 impl SteepestDescent {
     /// Create a new `SteepestDescent` minimizer
-    pub fn new() -> SteepestDescent {
-        SteepestDescent {
+    pub fn new() -> Self {
+        Self {
             gamma: units::from(0.1, "fs^2/u").expect("bad unit"),
         }
     }

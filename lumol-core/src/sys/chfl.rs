@@ -206,8 +206,8 @@ impl<'a> TrajectoryBuilder<'a> {
     ///     .open("file.xyz")
     ///     .unwrap();
     /// ```
-    pub fn new() -> TrajectoryBuilder<'a> {
-        TrajectoryBuilder {
+    pub fn new() -> Self {
+        Self {
             mode: OpenMode::Read,
             format: "",
         }

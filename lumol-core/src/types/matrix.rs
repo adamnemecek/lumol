@@ -84,8 +84,8 @@ impl Matrix3 {
     /// ]);
     /// assert_eq!(matrix[0][2], 3.0);
     /// ```
-    pub fn new(data: [[f64; 3]; 3]) -> Matrix3 {
-        Matrix3(data)
+    pub fn new(data: [[f64; 3]; 3]) -> Self {
+        Self(data)
     }
 
     /// Create a new `Matrix3` with components set to `0`
@@ -102,8 +102,8 @@ impl Matrix3 {
     ///     }
     /// }
     /// ```
-    pub fn zero() -> Matrix3 {
-        <Matrix3 as Zero>::zero()
+    pub fn zero() -> Self {
+        <Self as Zero>::zero()
     }
 
     /// Create a new `Vector3D` with components all components set to `0`,
@@ -125,8 +125,8 @@ impl Matrix3 {
     ///     }
     /// }
     /// ```
-    pub fn one() -> Matrix3 {
-        <Matrix3 as One>::one()
+    pub fn one() -> Self {
+        <Self as One>::one()
     }
 
     /// Returns rotation matrix given a rotation angle and an axis.
@@ -209,11 +209,11 @@ impl Matrix3 {
     ///
     /// If the matrix is not invertible, *i.e.* if the matrix determinant
     /// equals zero.
-    pub fn inverse(&self) -> Matrix3 {
+    pub fn inverse(&self) -> Self {
         let determinant = self.determinant();
         assert!(determinant.abs() > 1e-30, "The matrix is not invertible!");
         let inverse_determinant = 1.0 / determinant;
-        let mut res = Matrix3::zero();
+        let mut res = Self::zero();
         res[0][0] = (self[1][1] * self[2][2] - self[2][1] * self[1][2]) * inverse_determinant;
         res[0][1] = (self[0][2] * self[2][1] - self[0][1] * self[2][2]) * inverse_determinant;
         res[0][2] = (self[0][1] * self[1][2] - self[0][2] * self[1][1]) * inverse_determinant;
@@ -223,7 +223,7 @@ impl Matrix3 {
         res[2][0] = (self[1][0] * self[2][1] - self[2][0] * self[1][1]) * inverse_determinant;
         res[2][1] = (self[2][0] * self[0][1] - self[0][0] * self[2][1]) * inverse_determinant;
         res[2][2] = (self[0][0] * self[1][1] - self[1][0] * self[0][1]) * inverse_determinant;
-        return res;
+        res
     }
 
     /// Computes the [determinant][Wiki] of a matrix
@@ -268,8 +268,8 @@ impl Matrix3 {
     ///
     /// assert_eq!(matrix.transposed(), transposed);
     /// ```
-    pub fn transposed(&self) -> Matrix3 {
-        Matrix3::new([
+    pub fn transposed(&self) -> Self {
+        Self::new([
             [self[0][0], self[1][0], self[2][0]],
             [self[0][1], self[1][1], self[2][1]],
             [self[0][2], self[1][2], self[2][2]],

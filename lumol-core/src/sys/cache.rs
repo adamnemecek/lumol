@@ -43,8 +43,8 @@ pub struct EnergyCache {
 
 impl EnergyCache {
     /// Create a new empty energy cache.
-    pub fn new() -> EnergyCache {
-        EnergyCache {
+    pub fn new() -> Self {
+        Self {
             pairs_cache: Array2::zeros((0, 0)),
             pairs: 0.0,
             pairs_tail: 0.0,

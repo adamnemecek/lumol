@@ -35,9 +35,9 @@ impl Rotate {
     /// Create a new `Rotate` move, with maximum angular displacement of
     /// `theta`. This move will apply to the molecules with the given `hash`,
     /// or all molecules if `hash` is `None`.
-    pub fn new<H: Into<Option<MoleculeHash>>>(theta: f64, hash: H) -> Rotate {
+    pub fn new<H: Into<Option<MoleculeHash>>>(theta: f64, hash: H) -> Self {
         assert!(theta > 0.0, "theta must be positive in Rotate move");
-        Rotate {
+        Self {
             hash: hash.into(),
             molid: usize::max_value(),
             newpos: Vec::new(),

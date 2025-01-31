@@ -71,8 +71,8 @@ impl Vector3D {
     /// assert_eq!(vector[1], 0.0);
     /// assert_eq!(vector[2], -42.0);
     /// ```
-    pub fn new(x: f64, y: f64, z: f64) -> Vector3D {
-        Vector3D([x, y, z])
+    pub fn new(x: f64, y: f64, z: f64) -> Self {
+        Self([x, y, z])
     }
 
     /// Create a new `Vector3D` with components `0`, `0`, `0`
@@ -86,8 +86,8 @@ impl Vector3D {
     /// assert_eq!(vector[1], 0.0);
     /// assert_eq!(vector[2], 0.0);
     /// ```
-    pub fn zero() -> Vector3D {
-        <Vector3D as Zero>::zero()
+    pub fn zero() -> Self {
+        <Self as Zero>::zero()
     }
 
     /// Return the squared euclidean norm of a `Vector3D`

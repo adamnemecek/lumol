@@ -13,8 +13,8 @@ struct Cleaner {
 }
 
 impl Cleaner {
-    fn new(files: Vec<&'static str>) -> Cleaner {
-        Cleaner {
+    fn new(files: Vec<&'static str>) -> Self {
+        Self {
             files
         }
     }

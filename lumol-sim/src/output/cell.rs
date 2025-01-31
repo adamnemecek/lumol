@@ -21,8 +21,8 @@ pub struct CellOutput {
 impl CellOutput {
     /// Create a new `CellOutput` writing to `filename`. The file is replaced if
     /// it already exists.
-    pub fn new<P: AsRef<Path>>(filename: P) -> Result<CellOutput, io::Error> {
-        Ok(CellOutput {
+    pub fn new<P: AsRef<Path>>(filename: P) -> Result<Self, io::Error> {
+        Ok(Self {
             file: BufWriter::new(File::create(filename.as_ref())?),
             path: filename.as_ref().to_owned(),
         })

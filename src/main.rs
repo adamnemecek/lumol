@@ -107,8 +107,8 @@ struct CleanedBacktrace {
 }
 
 impl CleanedBacktrace {
-    fn new() -> CleanedBacktrace {
-        CleanedBacktrace {
+    fn new() -> Self {
+        Self {
             inner: Backtrace::new()
         }
     }

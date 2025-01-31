@@ -855,8 +855,8 @@ impl SharedEwald {
     /// let ewald = SharedEwald::new(Ewald::new(12.5, 10, None));
     /// let boxed: Box<dyn CoulombicPotential> = Box::new(ewald);
     /// ```
-    pub fn new(ewald: Ewald) -> SharedEwald {
-        SharedEwald(RwLock::new(ewald))
+    pub fn new(ewald: Ewald) -> Self {
+        Self(RwLock::new(ewald))
     }
 
     /// Get read access to the underlying Ewald solver
