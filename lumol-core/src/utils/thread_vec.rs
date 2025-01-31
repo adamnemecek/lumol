@@ -21,9 +21,9 @@ impl<T: Send + Default + Clone> ThreadLocalVec<T> {
         let inner = ThreadLocal::new();
         // Set the current thread as owner of the data
         let _ = inner.get_or(|| RefCell::new(vec![T::default(); size]));
-        ThreadLocalVec {
-            inner: inner,
-            size: size,
+        Self {
+            inner,
+            size,
         }
     }
 

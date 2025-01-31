@@ -47,21 +47,21 @@ pub struct Input {
 
 impl Input {
     /// Read the file at `Path` and create a new `Input` from it.
-    pub fn new<P: Into<PathBuf>>(path: P) -> Result<Input, Error> {
+    pub fn new<P: Into<PathBuf>>(path: P) -> Result<Self, Error> {
         let path = path.into();
         let mut file = try_io!(File::open(&path), path);
         let mut buffer = String::new();
         let _ = try_io!(file.read_to_string(&mut buffer), path);
-        return Input::from_str(path, &buffer);
+        Self::from_str(path, &buffer)
     }
 
     /// Read the `Input` from a TOML formatted string.
-    pub fn from_str(path: PathBuf, string: &str) -> Result<Input, Error> {
+    pub fn from_str(path: PathBuf, string: &str) -> Result<Self, Error> {
         let config = parse_toml(string).map_err(|err| { Error::TOML(Box::new(err)) })?;
         validate(&config)?;
-        Ok(Input {
-            path: path,
-            config: config,
+        Ok(Self {
+            path,
+            config,
         })
     }
 
@@ -73,9 +73,9 @@ impl Input {
         let nsteps = self.read_nsteps()?;
 
         Ok(Config {
-            system: system,
-            simulation: simulation,
-            nsteps: nsteps,
+            system,
+            simulation,
+            nsteps,
         })
     }
 }

@@ -15,10 +15,10 @@ pub struct Alternator<T> {
 
 impl<T> Alternator<T> {
     /// Wrap the algorithm `base` to call it only every `every` time.
-    pub fn new(every: u64, inner: T) -> Alternator<T> {
-        Alternator {
-            every: every,
-            inner: inner,
+    pub fn new(every: u64, inner: T) -> Self {
+        Self {
+            every,
+            inner,
             count: 0,
         }
     }

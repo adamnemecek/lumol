@@ -37,9 +37,9 @@ struct Move {
 impl Move {
     /// Create a move, initializing all counts to zero and setting the
     /// `target_acceptance`.
-    pub fn new(mcmove: Box<dyn MCMove>, target_acceptance: Option<f64>) -> Move {
-        let mut counter = Move {
-            mcmove: mcmove,
+    pub fn new(mcmove: Box<dyn MCMove>, target_acceptance: Option<f64>) -> Self {
+        let mut counter = Self {
+            mcmove,
             total_attempted: 0,
             total_accepted: 0,
             accepted: 0,
@@ -154,23 +154,23 @@ pub struct MonteCarloBuilder {
 
 impl MonteCarloBuilder {
     /// Create a new Monte Carlo propagator at temperature `T`.
-    pub fn new(temperature: f64) -> MonteCarloBuilder {
+    pub fn new(temperature: f64) -> Self {
         let rng = Box::new(rand_xorshift::XorShiftRng::from_seed([
             0xeb, 0xa8, 0xe4, 0x29, 0xca, 0x60, 0x44, 0xb0,
             0xd3, 0x77, 0xc6, 0xa0, 0x21, 0x71, 0x37, 0xf7,
         ]));
-        return MonteCarloBuilder::from_rng(temperature, rng);
+        Self::from_rng(temperature, rng)
     }
 
     /// Create a Monte Carlo propagator at temperature `T`, using the `rng`
     /// random number generator.
-    pub fn from_rng(temperature: f64, rng: Box<dyn rand::RngCore>) -> MonteCarloBuilder {
+    pub fn from_rng(temperature: f64, rng: Box<dyn rand::RngCore>) -> Self {
         assert!(temperature > 0.0, "Monte Carlo temperature must be positive, got {}", temperature);
-        MonteCarloBuilder {
+        Self {
             beta: 1.0 / (K_BOLTZMANN * temperature),
             moves: Vec::new(),
             frequencies: Vec::new(),
-            rng: rng,
+            rng,
         }
     }
 

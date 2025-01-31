@@ -54,21 +54,21 @@ pub struct System {
 
 impl System {
     /// Create a new empty `System`
-    pub fn new() -> System {
-        System::with_configuration(Configuration::new())
+    pub fn new() -> Self {
+        Self::with_configuration(Configuration::new())
     }
 
     /// Create an empty system with a specific unit cell
-    pub fn with_cell(cell: UnitCell) -> System {
+    pub fn with_cell(cell: UnitCell) -> Self {
         let mut configuration = Configuration::new();
         configuration.cell = cell;
-        System::with_configuration(configuration)
+        Self::with_configuration(configuration)
     }
 
     /// Create a system with the specified `configuration`, and no interactions.
-    fn with_configuration(configuration: Configuration) -> System {
-        System {
-            configuration: configuration,
+    fn with_configuration(configuration: Configuration) -> Self {
+        Self {
+            configuration,
             interactions: Interactions::new(),
             step: 0,
             external_temperature: None,
@@ -293,7 +293,7 @@ impl System {
         match self.external_temperature {
             Some(temperature) => {
                 PressureAtTemperature {
-                    temperature: temperature,
+                    temperature,
                 }.compute(self)
             }
             None => Pressure.compute(self),
@@ -305,7 +305,7 @@ impl System {
         match self.external_temperature {
             Some(temperature) => {
                 StressAtTemperature {
-                    temperature: temperature,
+                    temperature,
                 }.compute(self)
             }
             None => Stress.compute(self),

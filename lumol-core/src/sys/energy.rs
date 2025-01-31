@@ -20,8 +20,8 @@ pub struct EnergyEvaluator<'a> {
 
 impl<'a> EnergyEvaluator<'a> {
     /// Create a new `EnergyEvaluator` acting on the given `system`.
-    pub fn new(system: &'a System) -> EnergyEvaluator<'a> {
-        EnergyEvaluator { system: system }
+    pub fn new(system: &'a System) -> Self {
+        Self { system }
     }
 }
 
@@ -55,7 +55,7 @@ impl<'a> EnergyEvaluator<'a> {
             }
             local_energy
         });
-        return energies.sum();
+        energies.sum()
     }
 
     /// Compute the energy due to long range corrections for the pairs

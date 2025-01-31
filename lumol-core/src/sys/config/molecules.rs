@@ -73,12 +73,12 @@ pub struct MoleculeRefMut<'a> {
 
 impl Molecule {
     /// Create a new `Molecule` containing a single `particle`
-    pub fn new(particle: Particle) -> Molecule {
+    pub fn new(particle: Particle) -> Self {
         let mut particles = ParticleVec::new();
         particles.push(particle);
-        Molecule {
+        Self {
             bonding: Bonding::new(0),
-            particles: particles,
+            particles,
         }
     }
 
@@ -147,8 +147,8 @@ impl<'a> MoleculeRef<'a> {
     pub fn new(bonding: &'a Bonding, particles: ParticleSlice<'a>) -> MoleculeRef<'a> {
         assert_eq!(bonding.size(), particles.len());
         MoleculeRef {
-            bonding: bonding,
-            particles: particles,
+            bonding,
+            particles,
         }
     }
 
@@ -182,11 +182,11 @@ impl<'a> MoleculeRefMut<'a> {
     ///
     /// If the `bonding` and the `particles` do not containe the same number
     /// of particles.
-    pub fn new(bonding: &'a Bonding, particles: ParticleSliceMut<'a>) -> MoleculeRefMut<'a> {
+    pub fn new(bonding: &'a Bonding, particles: ParticleSliceMut<'a>) -> Self {
         assert_eq!(bonding.size(), particles.len());
-        MoleculeRefMut {
-            bonding: bonding,
-            particles: particles,
+        Self {
+            bonding,
+            particles,
         }
     }
 

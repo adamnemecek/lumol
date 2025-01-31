@@ -15,14 +15,15 @@ use crate::{Error, InteractionsInput, FromToml, FromTomlWithData};
 use crate::extract;
 
 /// Global settings for the pair interactions
+#[derive(Default)]
 struct GlobalInformation<'a> {
     cutoff: Option<&'a Value>,
     tail: Option<bool>,
 }
 
 impl GlobalInformation<'_> {
-    fn read(config: &Table) -> Result<GlobalInformation<'_>, Error> {
-        match config.get("global") {
+    fn read(config: &Table) -> Result<Self, Error> {
+        Ok(match config.get("global") {
             Some(global) => {
                 let global = global.as_table().ok_or(
                     Error::from("'global' section must be a table")
@@ -37,18 +38,15 @@ impl GlobalInformation<'_> {
                     })
                     .map_or(Ok(None), |tail| tail.map(Some))?;
 
-                Ok(GlobalInformation {
-                    cutoff: cutoff,
-                    tail: tail,
-                })
+                Self {
+                    cutoff,
+                    tail,
+                }
             }
             None => {
-                Ok(GlobalInformation {
-                    cutoff: None,
-                    tail: None,
-                })
+                Self::default()
             }
-        }
+        })
     }
 }
 

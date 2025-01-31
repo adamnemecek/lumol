@@ -47,7 +47,7 @@ impl Ewald3DArray {
         let i = (range.end + offset) as usize;
         Ewald3DArray {
             data: Array3::zeros((i, j, k)),
-            offset: offset
+            offset
         }
     }
 
@@ -250,8 +250,8 @@ pub struct Ewald {
 }
 
 impl Clone for Ewald {
-    fn clone(&self) -> Ewald {
-        Ewald {
+    fn clone(&self) -> Self {
+        Self {
             parameters: self.parameters.clone(),
             factors: self.factors.clone(),
             restriction: self.restriction,
@@ -275,7 +275,7 @@ impl Ewald {
     /// Create an Ewald summation using the given `cutoff` radius in real space,
     /// and `kmax` points in k-space (Fourier space). If `alpha` is None, then
     /// the default value of `π / cutoff` is used.
-    pub fn new<I: Into<Option<f64>>>(cutoff: f64, kmax: usize, alpha: I) -> Ewald {
+    pub fn new<I: Into<Option<f64>>>(cutoff: f64, kmax: usize, alpha: I) -> Self {
         let alpha = alpha.into().unwrap_or(PI / cutoff);
         if cutoff < 0.0 {
             panic!("the cutoff can not be negative in Ewald");
@@ -286,14 +286,14 @@ impl Ewald {
         }
 
         let parameters = EwaldParameters {
-            alpha: alpha,
+            alpha,
             rc: cutoff,
             kmax: kmax as isize,
             kmax2: 0.0,
         };
 
-        Ewald {
-            parameters: parameters,
+        Self {
+            parameters,
             restriction: PairRestriction::None,
             factors: EwaldFactorVec::new(),
             eikr: Ewald3DArray::zeros((0..0, 0, 0)),

@@ -54,10 +54,10 @@ impl PairInteraction {
     /// // energy at and after the cutoff is zero
     /// assert_eq!(interaction.energy(2.0), 0.0);
     /// ```
-    pub fn new(potential: Box<dyn PairPotential>, cutoff: f64) -> PairInteraction {
-        PairInteraction {
-            potential: potential,
-            cutoff: cutoff,
+    pub fn new(potential: Box<dyn PairPotential>, cutoff: f64) -> Self {
+        Self {
+            potential,
+            cutoff,
             restriction: PairRestriction::None,
             computation: PairComputation::Cutoff,
             tail: false,
@@ -83,11 +83,11 @@ impl PairInteraction {
     /// // energy after the cutoff is zero
     /// assert_eq!(interaction.energy(2.0), 0.0);
     /// ```
-    pub fn shifted(potential: Box<dyn PairPotential>, cutoff: f64) -> PairInteraction {
+    pub fn shifted(potential: Box<dyn PairPotential>, cutoff: f64) -> Self {
         let shift = potential.energy(cutoff);
-        PairInteraction {
-            potential: potential,
-            cutoff: cutoff,
+        Self {
+            potential,
+            cutoff,
             restriction: PairRestriction::None,
             computation: PairComputation::Shifted(shift),
             tail: false,

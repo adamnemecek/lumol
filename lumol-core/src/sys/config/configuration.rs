@@ -25,10 +25,10 @@ pub struct Permutation {
 }
 
 impl Permutation {
-    fn new(old: usize, new: usize) -> Permutation {
-        Permutation {
-            old: old,
-            new: new,
+    fn new(old: usize, new: usize) -> Self {
+        Self {
+            old,
+            new,
         }
     }
 }
@@ -52,8 +52,8 @@ pub struct Configuration {
 
 impl Configuration {
     /// Create a new empty `Configuration`
-    pub fn new() -> Configuration {
-        Configuration {
+    pub fn new() -> Self {
+        Self {
             particles: ParticleVec::new(),
             bondings: Vec::new(),
             molecule_ids: Vec::new(),
@@ -78,8 +78,8 @@ impl Configuration {
         };
         MoleculeIter {
             bondings: self.bondings.iter(),
-            ptr: ptr,
-            end: end,
+            ptr,
+            end,
             _marker: PhantomData,
         }
     }
@@ -92,8 +92,8 @@ impl Configuration {
         };
         MoleculeIterMut {
             bondings: self.bondings.iter(),
-            ptr: ptr,
-            end: end,
+            ptr,
+            end,
             _marker: PhantomData,
         }
     }

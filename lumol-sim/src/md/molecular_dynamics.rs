@@ -20,15 +20,15 @@ pub struct MolecularDynamics {
 impl MolecularDynamics {
     /// Create a new `MolecularDynamics` propagator using a `VelocityVerlet`
     /// integrator.
-    pub fn new(dt: f64) -> MolecularDynamics {
-        MolecularDynamics::from_integrator(Box::new(VelocityVerlet::new(dt)))
+    pub fn new(dt: f64) -> Self {
+        Self::from_integrator(Box::new(VelocityVerlet::new(dt)))
     }
 
     /// Create a new `MolecularDynamics` propagator using the specified
     /// `integrator`.
-    pub fn from_integrator(integrator: Box<dyn Integrator>) -> MolecularDynamics {
-        MolecularDynamics {
-            integrator: integrator,
+    pub fn from_integrator(integrator: Box<dyn Integrator>) -> Self {
+        Self {
+            integrator,
             thermostat: None,
             controls: Vec::new(),
         }

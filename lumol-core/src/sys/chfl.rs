@@ -227,9 +227,9 @@ impl<'a> TrajectoryBuilder<'a> {
     ///     .open("file.mol")
     ///     .unwrap();
     /// ```
-    pub fn format(self, format: &'a str) -> TrajectoryBuilder<'a> {
-        TrajectoryBuilder {
-            format: format,
+    pub fn format(self, format: &'a str) -> Self {
+        Self {
+            format,
             mode: self.mode,
         }
     }
@@ -245,9 +245,9 @@ impl<'a> TrajectoryBuilder<'a> {
     ///     .open("file.nc")
     ///     .unwrap();
     /// ```
-    pub fn mode(self, mode: OpenMode) -> TrajectoryBuilder<'a> {
-        TrajectoryBuilder {
-            mode: mode,
+    pub fn mode(self, mode: OpenMode) -> Self {
+        Self {
+            mode,
             format: self.format,
         }
     }
@@ -270,7 +270,7 @@ impl<'a> TrajectoryBuilder<'a> {
             OpenMode::Append => 'a',
         };
         let trajectory = chemfiles::Trajectory::open_with_format(path, mode, self.format)?;
-        return Ok(Trajectory(trajectory));
+        Ok(Trajectory(trajectory))
     }
 }
 

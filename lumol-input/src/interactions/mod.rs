@@ -26,27 +26,25 @@ pub struct InteractionsInput {
 
 impl InteractionsInput {
     /// Read interactions from the TOML formatted file at `path`.
-    pub fn new<P: Into<PathBuf>>(path: P) -> Result<InteractionsInput, Error> {
+    pub fn new<P: Into<PathBuf>>(path: P) -> Result<Self, Error> {
         let path = path.into();
         let mut file = try_io!(File::open(&path), path);
         let mut buffer = String::new();
         let _ = try_io!(file.read_to_string(&mut buffer), path);
-        return InteractionsInput::from_str(&buffer);
+        Self::from_str(&buffer)
     }
 
     /// Read the interactions from a TOML formatted string.
     #[allow(clippy::should_implement_trait)]
-    pub fn from_str(string: &str) -> Result<InteractionsInput, Error> {
+    pub fn from_str(string: &str) -> Result<Self, Error> {
         let config = parse(string).map_err(|err| Error::TOML(Box::new(err)))?;
         validate(&config)?;
-        return Ok(InteractionsInput::from_toml(config));
+        Ok(Self::from_toml(config))
     }
 
     /// Read the interactions from a TOML table.
-    pub(crate) fn from_toml(config: Table) -> InteractionsInput {
-        InteractionsInput {
-            config: config
-        }
+    pub(crate) fn from_toml(config: Table) -> Self {
+        Self { config }
     }
 
     /// Read the interactions from this input into the `system`.

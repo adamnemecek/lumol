@@ -40,36 +40,36 @@ pub struct UnitCell {
 
 impl UnitCell {
     /// Create an infinite unit cell
-    pub fn infinite() -> UnitCell {
-        UnitCell {
+    pub fn infinite() -> Self {
+        Self {
             cell: Matrix3::zero(),
             inv: Matrix3::zero(),
             shape: CellShape::Infinite,
         }
     }
     /// Create an orthorhombic unit cell, with side lengths `a, b, c`.
-    pub fn ortho(a: f64, b: f64, c: f64) -> UnitCell {
+    pub fn ortho(a: f64, b: f64, c: f64) -> Self {
         assert!(a > 0.0 && b > 0.0 && c > 0.0, "Cell lengths must be positive");
         let cell = Matrix3::new([[a, 0.0, 0.0], [0.0, b, 0.0], [0.0, 0.0, c]]);
-        UnitCell {
-            cell: cell,
+        Self {
+            cell,
             inv: cell.inverse(),
             shape: CellShape::Orthorhombic,
         }
     }
     /// Create a cubic unit cell, with side lengths `length, length, length`.
-    pub fn cubic(length: f64) -> UnitCell {
+    pub fn cubic(length: f64) -> Self {
         assert!(length > 0.0, "Cell lengths must be positive");
         let cell = Matrix3::new([[length, 0.0, 0.0], [0.0, length, 0.0], [0.0, 0.0, length]]);
-        UnitCell {
-            cell: cell,
+        Self {
+            cell,
             inv: cell.inverse(),
             shape: CellShape::Orthorhombic,
         }
     }
     /// Create a triclinic unit cell, with side lengths `a, b, c` and angles
     /// `alpha, beta, gamma`.
-    pub fn triclinic(a: f64, b: f64, c: f64, alpha: f64, beta: f64, gamma: f64) -> UnitCell {
+    pub fn triclinic(a: f64, b: f64, c: f64, alpha: f64, beta: f64, gamma: f64) -> Self {
         assert!(a > 0.0 && b > 0.0 && c > 0.0, "Cell lengths must be positive");
         let cos_alpha = alpha.to_radians().cos();
         let cos_beta = beta.to_radians().cos();
@@ -84,8 +84,8 @@ impl UnitCell {
 
         let cell = Matrix3::new([[a, b_x, c_x], [0.0, b_y, c_y], [0.0, 0.0, c_z]]);
 
-        UnitCell {
-            cell: cell,
+        Self {
+            cell,
             inv: cell.inverse(),
             shape: CellShape::Triclinic,
         }
@@ -209,11 +209,11 @@ impl UnitCell {
     /// Scale this unit cell by multiplying the cell matrix by `s`, and return a
     /// new scaled unit cell
     #[inline]
-    pub fn scale(&self, s: Matrix3) -> UnitCell {
+    pub fn scale(&self, s: Matrix3) -> Self {
         assert!(self.shape() != CellShape::Infinite, "can not scale infinite cells");
         let cell = s * self.cell;
-        UnitCell {
-            cell: cell,
+        Self {
+            cell,
             inv: cell.inverse(),
             shape: self.shape,
         }

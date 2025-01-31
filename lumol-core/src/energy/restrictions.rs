@@ -85,19 +85,19 @@ impl PairRestriction {
     pub fn information(&self, path: BondPath) -> RestrictionInfo {
         let are_in_same_molecule = path != BondPath::None;
         let excluded = match *self {
-            PairRestriction::None => false,
-            PairRestriction::InterMolecular => are_in_same_molecule,
-            PairRestriction::IntraMolecular => !are_in_same_molecule,
-            PairRestriction::Exclude12 => path == BondPath::OneBond,
-            PairRestriction::Exclude13 | PairRestriction::Scale14(..) => {
+            Self::None => false,
+            Self::InterMolecular => are_in_same_molecule,
+            Self::IntraMolecular => !are_in_same_molecule,
+            Self::Exclude12 => path == BondPath::OneBond,
+            Self::Exclude13 | Self::Scale14(..) => {
                 path == BondPath::OneBond || path == BondPath::TwoBonds
             }
-            PairRestriction::Exclude14 => {
+            Self::Exclude14 => {
                 path == BondPath::OneBond || path == BondPath::TwoBonds || path == BondPath::ThreeBonds
             },
         };
 
-        let scaling = if let PairRestriction::Scale14(scaling) = *self {
+        let scaling = if let Self::Scale14(scaling) = *self {
             if path == BondPath::ThreeBonds {
                 scaling
             } else {
@@ -108,8 +108,8 @@ impl PairRestriction {
         };
 
         RestrictionInfo {
-            excluded: excluded,
-            scaling: scaling,
+            excluded,
+            scaling,
         }
     }
 }

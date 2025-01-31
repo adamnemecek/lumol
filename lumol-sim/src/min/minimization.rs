@@ -52,12 +52,12 @@ pub struct Minimization {
 impl Minimization {
     /// Create a new `Minimization` using the given `minimizer` and specific
     /// energy and force `tolerance`.
-    pub fn new(minimizer: Box<dyn Minimizer>, tolerance: Tolerance) -> Minimization {
-        Minimization {
-            minimizer: minimizer,
+    pub fn new(minimizer: Box<dyn Minimizer>, tolerance: Tolerance) -> Self {
+        Self {
+            minimizer,
             is_converged: false,
             last_energy: 0.0,
-            tolerance: tolerance,
+            tolerance,
         }
     }
 

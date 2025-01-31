@@ -18,11 +18,11 @@ pub struct Bond {
 
 impl Bond {
     /// Create a new Bond between the particles at indexes `first` and `second`
-    pub fn new(first: usize, second: usize) -> Bond {
+    pub fn new(first: usize, second: usize) -> Self {
         assert_ne!(first, second);
         let i = min(first, second);
         let j = max(first, second);
-        Bond { i: i, j: j }
+        Self { i, j }
     }
 
     /// Get the first particle in the bond
@@ -51,16 +51,16 @@ pub struct Angle {
 
 impl Angle {
     /// Create a new Angle between the particles at indexes `first`, `second` and `third`
-    pub fn new(first: usize, second: usize, third: usize) -> Angle {
+    pub fn new(first: usize, second: usize, third: usize) -> Self {
         assert_ne!(first, second);
         assert_ne!(first, third);
         assert_ne!(second, third);
         let i = min(first, third);
         let k = max(first, third);
-        Angle {
-            i: i,
+        Self {
+            i,
             j: second,
-            k: k,
+            k,
         }
     }
 
@@ -96,20 +96,20 @@ pub struct Dihedral {
 impl Dihedral {
     /// Create a new Dihedral between the particles at indexes `first`, `second`,
     /// `third` and `fourth`
-    pub fn new(first: usize, second: usize, third: usize, fourth: usize) -> Dihedral {
+    pub fn new(first: usize, second: usize, third: usize, fourth: usize) -> Self {
         assert_ne!(first, second);
         assert_ne!(second, third);
         assert_ne!(third, fourth);
-        let (i, j, k, m) = if max(first, second) < max(third, fourth) {
+        let (i, j, k, m) = if first.max(second) < third.max( fourth) {
             (first, second, third, fourth)
         } else {
             (fourth, third, second, first)
         };
-        Dihedral {
-            i: i,
-            j: j,
-            k: k,
-            m: m,
+        Self {
+            i,
+            j,
+            k,
+            m,
         }
     }
 
@@ -159,8 +159,8 @@ bitflags! {
 }
 
 impl Default for BondDistances {
-    fn default() -> BondDistances {
-        BondDistances::FAR
+    fn default() -> Self {
+        Self::FAR
     }
 }
 

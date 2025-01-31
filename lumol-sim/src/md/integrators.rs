@@ -30,7 +30,7 @@ impl VelocityVerlet {
     /// Create a new integrator with a timestep of `timestep`.
     pub fn new(timestep: f64) -> VelocityVerlet {
         VelocityVerlet {
-            timestep: timestep,
+            timestep,
             accelerations: Vec::new(),
         }
     }
@@ -81,9 +81,9 @@ pub struct Verlet {
 
 impl Verlet {
     /// Create a new integrator with a timestep of `timestep`.
-    pub fn new(timestep: f64) -> Verlet {
-        Verlet {
-            timestep: timestep,
+    pub fn new(timestep: f64) -> Self {
+        Self {
+            timestep,
             prevpos: Vec::new(),
         }
     }
@@ -134,9 +134,9 @@ pub struct LeapFrog {
 
 impl LeapFrog {
     /// Create a new integrator with a timestep of `timestep`.
-    pub fn new(timestep: f64) -> LeapFrog {
-        LeapFrog {
-            timestep: timestep,
+    pub fn new(timestep: f64) -> Self {
+        Self {
+            timestep,
             accelerations: Vec::new(),
         }
     }
@@ -192,11 +192,11 @@ impl BerendsenBarostat {
     /// Create a new Berendsen barostat with an integration timestep of
     /// `timestep`, and a target pressure of `pressure` and the barostat time
     /// scale `tau`.
-    pub fn new(timestep: f64, pressure: f64, tau: f64) -> BerendsenBarostat {
-        BerendsenBarostat {
-            timestep: timestep,
-            pressure: pressure,
-            tau: tau,
+    pub fn new(timestep: f64, pressure: f64, tau: f64) -> Self {
+        Self {
+            timestep,
+            pressure,
+            tau,
             accelerations: Vec::new(),
             eta: 1.0,
         }
@@ -269,11 +269,11 @@ impl AnisoBerendsenBarostat {
     /// Create a new anisotropic Berendsen barostat with an integration timestep
     /// of `timestep`, and a target stress matrix of `stress` and the barostat
     /// time scale `tau`.
-    pub fn new(timestep: f64, stress: Matrix3, tau: f64) -> AnisoBerendsenBarostat {
-        AnisoBerendsenBarostat {
-            timestep: timestep,
-            stress: stress,
-            tau: tau,
+    pub fn new(timestep: f64, stress: Matrix3, tau: f64) -> Self {
+        Self {
+            timestep,
+            stress,
+            tau,
             accelerations: Vec::new(),
             eta: Matrix3::one(),
         }
@@ -282,8 +282,8 @@ impl AnisoBerendsenBarostat {
     /// Create a new anisotropic Berendsen barostat with an integration timestep
     /// of `timestep`, using an hydrostatic stress matrix corresponding to the
     /// pressure `pressure` and the barostat time scale `tau`.
-    pub fn hydrostatic(timestep: f64, pressure: f64, tau: f64) -> AnisoBerendsenBarostat {
-        AnisoBerendsenBarostat::new(timestep, pressure * Matrix3::one(), tau)
+    pub fn hydrostatic(timestep: f64, pressure: f64, tau: f64) -> Self {
+        Self::new(timestep, pressure * Matrix3::one(), tau)
     }
 }
 

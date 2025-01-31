@@ -47,18 +47,18 @@ pub struct RescaleThermostat {
 impl RescaleThermostat {
     /// Create a new `RescaleThermostat` acting at temperature `temperature`, with a
     /// tolerance of `5% * temperature`.
-    pub fn new(temperature: f64) -> RescaleThermostat {
+    pub fn new(temperature: f64) -> Self {
         assert!(temperature >= 0.0, "The temperature must be positive in thermostats.");
         let tol = 0.05 * temperature;
-        RescaleThermostat::with_tolerance(temperature, tol)
+        Self::with_tolerance(temperature, tol)
     }
 
     /// Create a new `RescaleThermostat` acting at temperature `T`, with a
     /// tolerance of `tol`. For rescaling all the steps, use `tol = 0`.
-    pub fn with_tolerance(temperature: f64, tol: f64) -> RescaleThermostat {
-        RescaleThermostat {
-            temperature: temperature,
-            tol: tol,
+    pub fn with_tolerance(temperature: f64, tol: f64) -> Self {
+        Self {
+            temperature,
+            tol,
         }
     }
 }
@@ -99,12 +99,12 @@ pub struct BerendsenThermostat {
 impl BerendsenThermostat {
     /// Create a new `BerendsenThermostat` acting at the given `temperature`,
     /// with a timestep of `tau` times the integrator timestep.
-    pub fn new(temperature: f64, tau: f64) -> BerendsenThermostat {
+    pub fn new(temperature: f64, tau: f64) -> Self {
         assert!(temperature >= 0.0, "The temperature must be positive in thermostats.");
         assert!(tau >= 1.0, "The timestep must be larger than 1 in berendsen thermostat.");
-        BerendsenThermostat {
-            temperature: temperature,
-            tau: tau,
+        Self {
+            temperature,
+            tau,
         }
     }
 }
@@ -161,8 +161,8 @@ impl CSVRThermostat {
         assert!(tau >= 1.0, "The timestep must be larger than 1 in CSVR thermostat.");
         CSVRThermostat {
             target_kinetic_per_dof: K_BOLTZMANN * temperature / 2.0,
-            tau: tau,
-            rng: rng,
+            tau,
+            rng,
             normal: Normal::new(0.0, 1.0).expect("bad normal distribution"),
         }
     }

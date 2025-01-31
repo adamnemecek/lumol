@@ -60,7 +60,7 @@ impl Minimizer for SteepestDescent {
         }
 
         return Tolerance {
-            energy: energy,
+            energy,
             force2: forces.iter().map(|&f| f.norm2()).fold(f64::NAN, f64::max),
         };
     }

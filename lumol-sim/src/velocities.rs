@@ -38,12 +38,12 @@ pub struct BoltzmannVelocities {
 
 impl BoltzmannVelocities {
     /// Create a new `BoltzmannVelocities` at the given `temperature`.
-    pub fn new(temperature: f64) -> BoltzmannVelocities {
+    pub fn new(temperature: f64) -> Self {
         let dist = Normal::new(0.0, f64::sqrt(K_BOLTZMANN * temperature))
                           .expect("bad normal distribution");
-        BoltzmannVelocities {
-            temperature: temperature,
-            dist: dist,
+        Self {
+            temperature,
+            dist,
             rng: XorShiftRng::from_seed([
                 0xeb, 0xa8, 0xe4, 0x29, 0xca, 0x60, 0x44, 0xb0,
                 0xd3, 0x77, 0xc6, 0xa0, 0x21, 0x71, 0x37, 0xf7,
@@ -91,10 +91,10 @@ pub struct UniformVelocities {
 
 impl UniformVelocities {
     /// Create a new `UniformVelocities` at the given `temperature`.
-    pub fn new(temperature: f64) -> UniformVelocities {
+    pub fn new(temperature: f64) -> Self {
         let factor = f64::sqrt(3.0 * K_BOLTZMANN * temperature);
-        UniformVelocities {
-            temperature: temperature,
+        Self {
+            temperature,
             dist: Uniform::new(-factor, factor),
             rng: XorShiftRng::from_seed([
                 0xeb, 0xa8, 0xe4, 0x29, 0xca, 0x60, 0x44, 0xb0,

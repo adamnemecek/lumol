@@ -45,7 +45,7 @@ impl Translate {
             hash: hash.into(),
             molid: usize::max_value(),
             newpos: Vec::new(),
-            delta: delta,
+            delta,
             maximum_cutoff: None,
             range: Uniform::new(-delta, delta),
         }

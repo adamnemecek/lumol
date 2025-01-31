@@ -28,13 +28,13 @@ pub struct Resize {
 impl Resize {
     /// Create a new `Resize` move, with target pressure `pressure` and maximum
     /// displacement of `delta`.
-    pub fn new(pressure: f64, delta: f64) -> Resize {
+    pub fn new(pressure: f64, delta: f64) -> Self {
         assert!(delta > 0.0, "delta must be positive in Resize move");
-        Resize {
-            delta: delta,
+        Self {
+            delta,
             range: Uniform::new(-delta, delta),
             previous: Configuration::new(),
-            pressure: pressure,
+            pressure,
             maximum_cutoff: None,
         }
     }

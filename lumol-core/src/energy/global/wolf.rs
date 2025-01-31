@@ -75,10 +75,10 @@ impl Wolf {
         let energy_constant = erfc(alpha_cutoff) / cutoff;
         let force_constant = erfc(alpha_cutoff) / (cutoff * cutoff) + FRAC_2_SQRT_PI * alpha * f64::exp(-alpha_cutoff_2) / cutoff;
         Wolf {
-            alpha: alpha,
-            cutoff: cutoff,
-            energy_constant: energy_constant,
-            force_constant: force_constant,
+            alpha,
+            cutoff,
+            energy_constant,
+            force_constant,
             restriction: PairRestriction::None,
         }
     }

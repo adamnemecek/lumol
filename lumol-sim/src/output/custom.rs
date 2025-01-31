@@ -76,7 +76,7 @@ struct FormatArgs {
 }
 
 impl FormatArgs {
-    fn new(format: &str) -> Result<FormatArgs, CustomOutputError> {
+    fn new(format: &str) -> Result<Self, CustomOutputError> {
         let mut args = Vec::new();
         let mut expr = String::new();
         let mut tail = String::new();
@@ -115,9 +115,9 @@ impl FormatArgs {
             return Err(CustomOutputError::Custom("mismatched braces".into()));
         }
 
-        Ok(FormatArgs {
-            args: args,
-            tail: tail,
+        Ok(Self {
+            args,
+            tail,
         })
     }
 

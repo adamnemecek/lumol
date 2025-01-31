@@ -41,7 +41,7 @@ impl Rotate {
             hash: hash.into(),
             molid: usize::max_value(),
             newpos: Vec::new(),
-            theta: theta,
+            theta,
             range: Uniform::new(-theta, theta),
         }
     }

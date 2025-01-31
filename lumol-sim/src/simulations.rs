@@ -17,17 +17,17 @@ struct OutputFrequency {
 }
 
 impl OutputFrequency {
-    pub fn new(output: Box<dyn Output>) -> OutputFrequency {
-        OutputFrequency {
+    pub fn new(output: Box<dyn Output>) -> Self {
+        Self {
             frequency: 1,
-            output: output,
+            output,
         }
     }
 
-    pub fn with_frequency(output: Box<dyn Output>, frequency: u64) -> OutputFrequency {
-        OutputFrequency {
-            frequency: frequency,
-            output: output,
+    pub fn with_frequency(output: Box<dyn Output>, frequency: u64) -> Self {
+        Self {
+            frequency,
+            output,
         }
     }
 }
@@ -58,9 +58,9 @@ pub struct Simulation {
 
 impl Simulation {
     /// Create a new Simulation from a Propagator.
-    pub fn new(propagator: Box<dyn Propagator>) -> Simulation {
-        Simulation {
-            propagator: propagator,
+    pub fn new(propagator: Box<dyn Propagator>) -> Self {
+        Self {
+            propagator,
             outputs: Vec::new(),
         }
     }

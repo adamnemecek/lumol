@@ -689,7 +689,7 @@ mod test {
         // Direct computation
         let expected = natoms * K_BOLTZMANN * temperature / volume + virial / (3.0 * volume);
         let pressure = PressureAtTemperature {
-            temperature: temperature,
+            temperature,
         };
         let pressure = pressure.compute(system);
         assert_ulps_eq!(pressure, expected);
@@ -703,7 +703,7 @@ mod test {
 
         // Computation with an external temperature for the system
         let pressure = PressureAtTemperature {
-            temperature: temperature,
+            temperature,
         };
         let pressure = pressure.compute(system);
         system.simulated_temperature(Some(temperature));
@@ -730,11 +730,11 @@ mod test {
         let system = &mut test_pairs_system();
         let temperature = 550.0;
         let stress = StressAtTemperature {
-            temperature: temperature,
+            temperature,
         };
         let stress = stress.compute(system);
         let pressure = PressureAtTemperature {
-            temperature: temperature,
+            temperature,
         };
         let pressure = pressure.compute(system);
 

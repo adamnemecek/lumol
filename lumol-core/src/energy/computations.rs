@@ -99,7 +99,7 @@ impl TableComputation {
     /// assert_eq!(table.energy(1.0), 0.525);
     /// assert_eq!(table.energy(3.0), 0.0);
     /// ```
-    pub fn new(potential: Box<dyn PairPotential>, size: usize, max: f64) -> TableComputation {
+    pub fn new(potential: Box<dyn PairPotential>, size: usize, max: f64) -> Self {
         let delta = max / (size as f64);
         let mut energy_table = Vec::with_capacity(size);
         let mut force_table = Vec::with_capacity(size);
@@ -109,12 +109,12 @@ impl TableComputation {
             force_table.push(potential.force(r));
         }
 
-        TableComputation {
-            delta: delta,
+        Self {
+            delta,
             cutoff: max,
-            energy_table: energy_table,
-            force_table: force_table,
-            potential: potential,
+            energy_table,
+            force_table,
+            potential,
         }
     }
 }

@@ -60,11 +60,11 @@ impl Particle {
         let name = name.into();
         let mass = get_atomic_mass(&name).unwrap_or(0.0);
         Particle {
-            name: name,
-            mass: mass,
+            name,
+            mass,
             charge: 0.0,
             kind: ParticleKind::invalid(),
-            position: position,
+            position,
             velocity: Vector3D::zero(),
         }
     }

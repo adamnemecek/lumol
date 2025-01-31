@@ -187,9 +187,9 @@ pub struct CosineHarmonic {
 impl CosineHarmonic {
     /// Create a new `CosineHarmonic` potentials, with elastic constant of `k`
     /// and equilibrium value of `x0`
-    pub fn new(k: f64, x0: f64) -> CosineHarmonic {
-        CosineHarmonic {
-            k: k,
+    pub fn new(k: f64, x0: f64) -> Self {
+        Self {
+            k,
             cos_x0: f64::cos(x0),
         }
     }
@@ -467,7 +467,7 @@ impl Gaussian {
     /// Create a new `Gaussian` potential with a depth of `a` and a width of `b`
     pub fn new(a: f64, b: f64) -> Gaussian {
         assert!(b > 0.0, "\"b\" has to be positive in Gaussian potential");
-        Gaussian { a: a, b: b }
+        Self { a, b }
     }
 }
 
@@ -537,14 +537,14 @@ pub struct Mie {
 
 impl Mie {
     /// Return Mie potential.
-    pub fn new(sigma: f64, epsilon: f64, n: f64, m: f64) -> Mie {
+    pub fn new(sigma: f64, epsilon: f64, n: f64, m: f64) -> Self {
         assert!(m < n, "The repulsive exponent n has to be larger than the attractive exponent m");
         let prefac = n / (n - m) * (n / m).powf(m / (n - m)) * epsilon;
-        Mie {
-            sigma: sigma,
-            n: n,
-            m: m,
-            prefac: prefac,
+        Self {
+            sigma,
+            n,
+            m,
+            prefac,
         }
     }
 }
